@@ -58,7 +58,7 @@ namespace SpacedRepetition.Controllers
             {
                 return HttpNotFound();
             }
-            return View();
+            return View(deck);
         }
 
         [HttpPost]
