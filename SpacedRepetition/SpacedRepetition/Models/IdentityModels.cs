@@ -33,5 +33,7 @@ namespace SpacedRepetition.Models
         }
 
         public System.Data.Entity.DbSet<SpacedRepetition.Models.Deck> Decks { get; set; }
+
+        public System.Data.Entity.DbSet<SpacedRepetition.Models.Card> Cards { get; set; }
     }
 }

@@ -28,9 +28,7 @@ namespace SpacedRepetition.Repositories
         }
         public void AddDeck(ApplicationUser user, Deck deck)
         {
-            string userId = user.Id;
-            user.Decks.Add(deck);
-            _context.Users.Find(userId).Decks.Add(deck);
+            _context.Users.Find(user.Id).Decks.Add(deck);
             _context.SaveChanges();
         }
         public void EditDeck(Deck deck)
@@ -38,9 +36,44 @@ namespace SpacedRepetition.Repositories
             _context.Entry(deck).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        public List<Card> GetAllCards(ApplicationUser user, Deck deck)
+        {
+            return _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards;
+        }
+
         public void DeleteDeck(ApplicationUser user, Deck deck)
         {
             _context.Users.Find(user.Id).Decks.Remove(deck);
+            _context.SaveChanges();
+        }
+        public List<Card> AddCardList(ApplicationUser user, Deck deck)
+        {
+            List<Card> cards = new List<Card>();
+            _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards = cards;
+            _context.SaveChanges();
+            return cards;
+        }
+
+        public void DeleteCard(ApplicationUser user, Deck deck, Card card)
+        {
+            _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards.Remove(card);
+            _context.SaveChanges();
+        }
+
+        public void EditCard(Card card)
+        {
+            _context.Entry(card).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public Card GetCardById(ApplicationUser user, Deck deck, int cardId)
+        {
+            return _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards.SingleOrDefault(c => c.Id == cardId);
+        }
+
+        public void AddCard(ApplicationUser user, Deck deck, Card card)
+        {
+            _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards.Add(card);
             _context.SaveChanges();
         }
     }

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SpacedRepetition.Models.Card>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cards</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"].ToString()) })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CardFront)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CardBack)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardFront)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardBack)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { deckId = item.Deck.Id, cardId = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.ActionLink("Back to Decks", "Index", "Deck");

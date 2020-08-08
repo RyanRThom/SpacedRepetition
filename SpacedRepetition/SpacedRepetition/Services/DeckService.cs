@@ -35,5 +35,32 @@ namespace SpacedRepetition.Services
         {
             _repository.DeleteDeck(user, deck);
         }
+        public List<Card> GetAllCards(ApplicationUser user, Deck deck)
+        {
+            return _repository.GetAllCards(user, deck);
+        }
+
+        public List<Card> AddCardList(ApplicationUser user, Deck deck)
+        {
+            return _repository.AddCardList(user, deck);
+        }
+        public void AddCard(ApplicationUser user, Deck deck, Card card)
+        {
+            _repository.AddCard(user, deck, card);
+        }
+
+        public Card GetCardById(ApplicationUser user, Deck deck, int cardId)
+        {
+            return _repository.GetCardById(user, deck, cardId);
+        }
+        public void EditCard(Card card)
+        {
+            _repository.EditCard(card);
+        }
+
+        public void DeleteCard(ApplicationUser user, Deck deck, Card card)
+        {
+            _repository.DeleteCard(user, deck, card);
+        }
     }
 }
