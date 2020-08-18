@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.flashcard {
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    background-color: lightgray;
+    text-align: center;
+    height: 30vh;
+    line-height: 30vh;
+}

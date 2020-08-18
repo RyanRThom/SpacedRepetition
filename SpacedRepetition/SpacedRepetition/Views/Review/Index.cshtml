@@ -5,30 +5,10 @@
 
 <h2>Index</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CardFront)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardBack)
-        </th>
-        <th></th>
-    </tr>
+<div id="theId">
+    @Html.Partial("_Flashcard", Model.ElementAt(0))
+</div>
+<br />
+@Html.ActionLink("Review", "Review", new { deckId = Model.ElementAt(0).Deck.Id, cardId = Model.ElementAt(0).Id}, new { @class = "btn btn-default"})
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CardFront)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CardBack)
-            </td>
-            <td>
-                @Html.ActionLink("Review", "Review", new { deckId = item.Deck.Id, cardId = item.Id })
-            </td>
-        </tr>
-    }
 
-</table>
