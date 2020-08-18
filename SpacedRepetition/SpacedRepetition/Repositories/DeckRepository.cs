@@ -76,5 +76,21 @@ namespace SpacedRepetition.Repositories
             _context.Users.Find(user.Id).Decks.SingleOrDefault(d => d.Id == deck.Id).Cards.Add(card);
             _context.SaveChanges();
         }
+
+        public List<Card> GetCardsToReview(ApplicationUser user)
+        {
+            List<Card> toReview = new List<Card>();
+            foreach (Deck deck in _context.Users.Find(user.Id).Decks)
+            {
+                foreach (Card card in deck.Cards)
+                {
+                    if (DateTime.Compare(card.NextReview, DateTime.Now) < 0)
+                    {
+                        toReview.Add(card);
+                    }
+                }
+            }
+            return toReview;
+        }
     }
 }

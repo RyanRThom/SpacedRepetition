@@ -62,5 +62,10 @@ namespace SpacedRepetition.Services
         {
             _repository.DeleteCard(user, deck, card);
         }
+
+        public List<Card> GetCardsToReview(ApplicationUser user)
+        {
+            return _repository.GetCardsToReview(user);
+        }
     }
 }
