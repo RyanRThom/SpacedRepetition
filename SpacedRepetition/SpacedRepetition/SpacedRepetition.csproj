@@ -197,6 +197,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\home_header-1-1024x786.png" />
+    <Content Include="Content\img\sitting-6.svg" />
+    <Content Include="Content\img\standing-21.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
