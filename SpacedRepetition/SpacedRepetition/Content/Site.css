@@ -1,38 +1,11 @@
-﻿* {
-    box-sizing: border-box;
+﻿.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 50px;
 }
-
-    *:before,
-    *:after {
-        box-sizing: border-box;
-    }
-
-html,
-body {
-    height: 100%;
-    position: relative;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 
 .flashcard {
     border-width: 1px;
@@ -45,18 +18,19 @@ textarea {
     line-height: 30vh;
 }
 
-.main-container {
-    min-height: 100vh !important; /* will cover the 100% of viewport */
-    overflow: hidden !important;
-    display: block !important;
+#page-container {
+    padding-top: 50px;
     position: relative !important;
-    /*padding-bottom: 2.5vh !important;*/ /* height of your footer */
+    min-height: 100vh !important;
 }
 
-footer {
+#content-wrap {
+    padding-bottom: 2.5rem !important; /* Footer height */
+}
+
+#footer {
     position: absolute !important;
     bottom: 0 !important;
     width: 100% !important;
-    height: 5vh !important;
-    background-color: lightgray !important;
+    height: 2.5rem !important; /* Footer height */
 }

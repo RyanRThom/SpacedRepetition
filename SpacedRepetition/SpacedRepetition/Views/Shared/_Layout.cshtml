@@ -6,10 +6,11 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse fixed-nav-bar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,21 +38,18 @@
             </div>
         </div>
     </div>
-    <div class="main-container">
-        <div class="container body-content">
-            <br />
-            @RenderBody()
-            <hr />
-        </div>
-        <br />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <div id="page-container">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    <link href="~/Content/Site.css" rel="stylesheet" />
+        <div id="content-wrap">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <footer id="footer">&copy;2020</footer>
+    </div>
 </body>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </html>
