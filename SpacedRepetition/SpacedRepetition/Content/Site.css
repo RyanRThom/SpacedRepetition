@@ -28,6 +28,13 @@
     align-content: center;
 }
 
+.flex-container {
+    width: 50%;
+    margin-left: calc((100vw - 50vw) / 2 ); /*Half of the missing width*/
+    display: flex;
+    justify-content: space-around;
+}
+
 .btn-group {
     padding: 20px;
     padding-left: 40px;
@@ -57,4 +64,8 @@
     text-align: center;
     height: 30vh;
     line-height: 30vh;
+}
+
+hr {
+    border-color: black !important;
 }

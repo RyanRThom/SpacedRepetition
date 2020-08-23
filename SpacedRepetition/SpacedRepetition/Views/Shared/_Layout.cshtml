@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - SpacedRepetition</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/9ae32e5ddb.js" crossorigin="anonymous"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
@@ -46,11 +47,11 @@
             </div>
         </div>
         <footer class="footer">
-            <div class="row row-no-gutters">
-                <div class="col-sm-12">
+            <div style="background-color: darkgray;">
+                <div class="row row-no-gutters">
                     <div class="btn-group-justified" role="group">
                         <div class="btn-group" role="group">
-                            @Html.ActionLink("Privacy Policy", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                            @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home", null, new { @class = "btn btn-primary btn-footer" })
                         </div>
                         <div class="btn-group" role="group">
                             @Html.ActionLink("Terms of Service", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
@@ -58,14 +59,24 @@
                         <div class="btn-group" role="group">
                             @Html.ActionLink("Contact", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
                         </div>
-                        <div class="btn-group" role="group">
-                            @Html.ActionLink("Report a Bug", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-no-gutters">
-                <p class="text-center text-uppercase">&copy; 2020 SpacedRepetition</p>
+                <div class="container">
+                    <hr />
+                    <div style="float:left;">
+                        <a href="#">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-twitter-square fa-2x"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-instagram-square fa-2x"></i>
+                        </a>
+                    </div>
+                    <p class="text-uppercase" style="float:right;">&copy; 2020 SpacedRepetition</p>
+                    @Html.ActionLink("Admin Portal", "Index", "Home", null, new { @style = "float: right; margin-right: 10px" })
+                </div>
             </div>
         </footer>
     </div>
