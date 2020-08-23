@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - SpacedRepetition</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Site.css" rel="stylesheet" />
@@ -18,13 +18,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SpacedRepetition", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Decks", "Index", "Deck")</li>
+                        <li>@Html.ActionLink("My Decks", "Index", "Deck")</li>
                         <li>@Html.ActionLink("Review", "Index", "Review")</li>
                     }
                     else
@@ -45,7 +45,29 @@
                 @RenderBody()
             </div>
         </div>
-        <footer id="footer">&copy;2020</footer>
+        <footer class="footer">
+            <div class="row row-no-gutters">
+                <div class="col-sm-12">
+                    <div class="btn-group-justified" role="group">
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Privacy Policy", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Terms of Service", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Contact", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Report a Bug", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-no-gutters">
+                <p class="text-center text-uppercase">&copy; 2020 SpacedRepetition</p>
+            </div>
+        </footer>
     </div>
 </body>
 

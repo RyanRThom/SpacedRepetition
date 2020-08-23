@@ -4,8 +4,49 @@
     left: 0;
     z-index: 9999;
     width: 100%;
-    height: 50px;
+    height: 50px; /* Fixed Navbar Height */
 }
+
+/*Body container*/
+#page-container {
+    padding-top: 50px; /* Fixed Navbar Height */
+    position: relative !important;
+    min-height: 100vh !important;
+}
+
+/*Pads enough room for footer*/
+#content-wrap {
+    padding-bottom: 150px !important; /* Footer height */
+}
+
+.footer {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 150px !important; /* Footer height */
+    background-color: darkgray !important;
+    align-content: center;
+}
+
+.btn-group {
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.btn-footer {
+    white-space: normal !important;
+    word-wrap: break-word;
+    background-color: inherit;
+    color: black;
+    border: 2px solid black;
+    transition-duration: 0.4s;
+}
+
+    .btn-footer:hover {
+        background-color: black;
+        color: white;
+    }
 
 .flashcard {
     border-width: 1px;
@@ -16,21 +57,4 @@
     text-align: center;
     height: 30vh;
     line-height: 30vh;
-}
-
-#page-container {
-    padding-top: 50px;
-    position: relative !important;
-    min-height: 100vh !important;
-}
-
-#content-wrap {
-    padding-bottom: 2.5rem !important; /* Footer height */
-}
-
-#footer {
-    position: absolute !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    height: 2.5rem !important; /* Footer height */
 }
