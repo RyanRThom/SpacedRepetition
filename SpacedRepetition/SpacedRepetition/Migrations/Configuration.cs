@@ -1,5 +1,8 @@
 namespace SpacedRepetition.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using SpacedRepetition.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,10 +17,40 @@ namespace SpacedRepetition.Migrations
 
         protected override void Seed(SpacedRepetition.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            string[] roles = new string[] { "admin", "basicuser" };
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            foreach (string role in roles)
+            {
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+                if (!context.Roles.Any(r => r.Name == role))
+                {
+                    roleManager.Create(new IdentityRole(role));
+                }
+            }
+
+
+            var user = new ApplicationUser
+            {
+                Email = "admin@gmail.com",
+                UserName = "admin@gmail.com",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+
+            };
+
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            if (!context.Users.Any(u => u.UserName == user.UserName))
+            {
+                userManager.Create(user, "Pass#1");
+                userManager.AddToRole(user.Id, "admin");
+
+            }
+
         }
+
+
+
     }
 }
