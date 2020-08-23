@@ -4,11 +4,17 @@
 }
 
 <h2>Index</h2>
-
-<div id="theId">
-    @Html.Partial("_Flashcard", Model.ElementAt(0))
-</div>
-<br />
-@Html.ActionLink("Review", "Review", new { deckId = Model.ElementAt(0).Deck.Id, cardId = Model.ElementAt(0).Id}, new { @class = "btn btn-default"})
+@if (Model != null && Model.ToList().Count != 0)
+{
+    <p>Cards left: @Model.Count()</p>
+    <div id="theId">
+        @Html.Partial("_Flashcard", Model.ElementAt(0))
+    </div>
+    <br />
+    @Html.ActionLink("Review", "Review", new { deckId = Model.ElementAt(0).Deck.Id, cardId = Model.ElementAt(0).Id }, new { @class = "btn btn-default" })
+} else
+{
+    <p>You have no cards ready for review</p>
+}
 
 
