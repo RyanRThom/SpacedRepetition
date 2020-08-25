@@ -14,7 +14,7 @@ using SpacedRepetition.Models;
 namespace SpacedRepetition.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -158,13 +158,16 @@ namespace SpacedRepetition.Controllers
                 {
                     UserManager.AddToRole(user.Id, "basicuser");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                       new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                    string name = "Ryan";
+                    String subject = "Huyu Email Confirmation";
+                    String plainText = "Hello " + name + ", Thank you for creating an account with Huyu! Please confirm your email with the following link: " + callbackUrl;
+                    String htmlText = "Hello " + name + ", <br/> Thank you for creating an account with Huyu!<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a>";
+                    await SendEmail(name, model.Email, subject, plainText, htmlText);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
