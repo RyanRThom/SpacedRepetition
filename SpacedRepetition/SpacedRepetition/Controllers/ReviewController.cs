@@ -11,19 +11,19 @@ using System.Web.Mvc;
 namespace SpacedRepetition.Controllers
 {
     [Authorize]
-    public class ReviewController : Controller
+    public class ReviewController : BaseController
     {
         private DeckService _service = new DeckService();
         public ActionResult Index()
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             List<Card> model = _service.GetCardsToReview(user);
             return View(model);
         }
 
         public ActionResult Review(int? deckId, int? cardId)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             Deck deck = _service.GetDeckById(user, (int)deckId);
             Card card = _service.GetCardById(user, deck, (int)cardId);
             card.Level += 1;

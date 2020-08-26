@@ -13,13 +13,13 @@ using System.Web.Mvc;
 namespace SpacedRepetition.Controllers
 {
     [Authorize]
-    public class CardController : Controller
+    public class CardController : BaseController
     {
         private DeckService _service = new DeckService();
         // GET: Card
         public ActionResult Index(int? id)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,7 +39,7 @@ namespace SpacedRepetition.Controllers
 
         public ActionResult Create(int? id)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -56,7 +56,7 @@ namespace SpacedRepetition.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Card card)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             int deckId = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"].ToString());
             Deck deck = _service.GetDeckById(user, deckId);
             card.Level = 0;
@@ -72,7 +72,7 @@ namespace SpacedRepetition.Controllers
         }
         public ActionResult Edit(int? deckId, int? cardId)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             if (deckId == null || cardId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -99,7 +99,7 @@ namespace SpacedRepetition.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditCardViewModel viewModel)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             int deckId = viewModel.DeckId;
             Deck deck = _service.GetDeckById(user, deckId);
             int cardId = viewModel.CardId;
@@ -119,7 +119,7 @@ namespace SpacedRepetition.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             Deck deck = _service.GetDeckById(user, (int)deckId);
             if (deck == null)
             {
@@ -137,7 +137,7 @@ namespace SpacedRepetition.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int deckId, int cardId)
         {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = GetCurrentUser();
             Deck deck = _service.GetDeckById(user, deckId);
             Card card = _service.GetCardById(user, deck, cardId);
             _service.DeleteCard(user, deck, card);
