@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ using SpacedRepetition.Models;
 namespace SpacedRepetition.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -152,18 +153,21 @@ namespace SpacedRepetition.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, Decks = new List<Deck>() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "basicuser");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                       new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                    String subject = "Huyu Email Confirmation";
+                    String plainText = "Hello " + model.FirstName + ", Thank you for creating an account with Huyu! Please confirm your email with the following link: " + callbackUrl;
+                    String htmlText = "Hello " + model.FirstName + ", <br/> Thank you for creating an account with Huyu!<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a>";
+                    await SendEmail(model.FirstName, model.Email, subject, plainText, htmlText);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
