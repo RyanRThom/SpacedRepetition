@@ -17,7 +17,7 @@ namespace SpacedRepetition.Controllers
 {
     public class BaseController : Controller
     {
-        public ApplicationUser GetCurrentUser()
+        public static ApplicationUser GetCurrentUser()
         {
             return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
@@ -31,6 +31,5 @@ namespace SpacedRepetition.Controllers
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }
-
     }
 }

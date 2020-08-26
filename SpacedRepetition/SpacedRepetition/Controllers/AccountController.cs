@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -152,7 +153,7 @@ namespace SpacedRepetition.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, Decks = new List<Deck>() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -163,11 +164,10 @@ namespace SpacedRepetition.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account",
                        new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
-                    string name = "Ryan";
                     String subject = "Huyu Email Confirmation";
-                    String plainText = "Hello " + name + ", Thank you for creating an account with Huyu! Please confirm your email with the following link: " + callbackUrl;
-                    String htmlText = "Hello " + name + ", <br/> Thank you for creating an account with Huyu!<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a>";
-                    await SendEmail(name, model.Email, subject, plainText, htmlText);
+                    String plainText = "Hello " + model.FirstName + ", Thank you for creating an account with Huyu! Please confirm your email with the following link: " + callbackUrl;
+                    String htmlText = "Hello " + model.FirstName + ", <br/> Thank you for creating an account with Huyu!<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a>";
+                    await SendEmail(model.FirstName, model.Email, subject, plainText, htmlText);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

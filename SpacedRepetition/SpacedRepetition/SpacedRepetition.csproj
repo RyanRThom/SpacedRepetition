@@ -189,6 +189,10 @@
     <Compile Include="Migrations\202008070112059_Deck.Designer.cs">
       <DependentUpon>202008070112059_Deck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008261408016_FirstName.cs" />
+    <Compile Include="Migrations\202008261408016_FirstName.Designer.cs">
+      <DependentUpon>202008261408016_FirstName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Card.cs" />
@@ -293,6 +297,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008070112059_Deck.resx">
       <DependentUpon>202008070112059_Deck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008261408016_FirstName.resx">
+      <DependentUpon>202008261408016_FirstName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
