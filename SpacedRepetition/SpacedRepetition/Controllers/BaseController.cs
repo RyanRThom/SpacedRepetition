@@ -22,7 +22,7 @@ namespace SpacedRepetition.Controllers
             return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
-        public async Task SendEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent) //pass in email, subject, text
+        public async Task SendEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent)
         {
             var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
             var client = new SendGridClient(apiKey);
