@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>@ViewBag.Title - SpacedRepetition</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/9ae32e5ddb.js" crossorigin="anonymous"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse fixed-nav-bar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,13 +19,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SpacedRepetition", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Decks", "Index", "Deck")</li>
+                        <li>@Html.ActionLink("My Decks", "Index", "Deck")</li>
                         <li>@Html.ActionLink("Review", "Index", "Review")</li>
                     }
                     else
@@ -38,16 +39,50 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    <div id="page-container">
+
+        <div id="content-wrap">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="footer">
+            <div style="background-color: darkgray;">
+                <div class="row row-no-gutters">
+                    <div class="btn-group-justified" role="group">
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Terms of Service", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Contact", "Index", "Home", null, new { @class = "btn btn-primary btn-footer" })
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <hr />
+                    <div style="float:left;">
+                        <a href="#">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-twitter-square fa-2x"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-instagram-square fa-2x"></i>
+                        </a>
+                    </div>
+                    <p class="text-uppercase" style="float:right;">&copy; 2020 SpacedRepetition</p>
+                    @Html.ActionLink("Admin Portal", "Index", "Admin", null, new { @style = "float: right; margin-right: 10px" })
+                </div>
+            </div>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </html>
