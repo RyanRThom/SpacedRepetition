@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using SpacedRepetition.Models;
 using SpacedRepetition.Services;
@@ -17,9 +18,22 @@ namespace SpacedRepetition.Controllers
         public ActionResult Index()
         {
             ApplicationUser user = GetCurrentUser();
-            List<Card> model = _service.GetCardsToReview(user);
+            List<Deck> model = _service.GetAllDecks(user);
             return View(model);
         }
+
+        public ActionResult PartialFlashcards(String deckName)
+        {
+            ApplicationUser user = GetCurrentUser();
+            if (deckName != "All")
+            {
+                List<Deck> decks = _service.GetDeckByName(user, deckName);
+                return PartialView("_Flashcard", decks);
+            }
+            List<Deck> allDecks = _service.GetAllDecks(user);
+            return PartialView("_Flashcard", allDecks);
+        }
+
 
         public ActionResult Review(int? deckId, int? cardId)
         {

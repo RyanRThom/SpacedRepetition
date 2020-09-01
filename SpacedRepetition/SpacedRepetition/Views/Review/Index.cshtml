@@ -1,20 +1,54 @@
-﻿@model IEnumerable<SpacedRepetition.Models.Card>
+﻿@model IEnumerable<SpacedRepetition.Models.Deck>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-@if (Model != null && Model.ToList().Count != 0)
-{
-    <p>Cards left: @Model.Count()</p>
-    <div id="theId">
-        @Html.Partial("_Flashcard", Model.ElementAt(0))
-    </div>
-    <br />
-    @Html.ActionLink("Review", "Review", new { deckId = Model.ElementAt(0).Deck.Id, cardId = Model.ElementAt(0).Id }, new { @class = "btn btn-default" })
-} else
-{
-    <p>You have no cards ready for review</p>
+@*<h2>Index</h2>
+    @if (Model != null && Model.ToList().Count != 0)
+    {
+        <p>Cards left: @Model.Count()</p>
+        <div id="theId">
+            @Html.Partial("_Flashcard", Model.ElementAt(0))
+        </div>
+        <br />
+        @Html.ActionLink("Review", "Review", new { deckId = Model.ElementAt(0).Deck.Id, cardId = Model.ElementAt(0).Id }, new { @class = "btn btn-default" })
+    } else
+    {
+        <p>You have no cards ready for review</p>
+    }*@
+
+<tr>
+    <td colspan="2">
+        <label class="displayBlock">Loading Partial View with jQuery AJAX</label>
+        <select id="deckSelect" name="deckName">
+            <option value="All">All</option>
+            @foreach (SpacedRepetition.Models.Deck deck in Model)
+            {
+                <option value="@deck.Name">@deck.Name</option>
+            }
+        </select> <button id="bindButton">Submit</button>
+    </td>
+</tr>
+
+<div id="partial"></div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#bindButton").click(function (e) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Review/PartialFlashcards",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"deckName":"' + $("#deckSelect").val() + '"}',
+                    dataType: "html",
+                    success: function (result, status, xhr) {
+                        $("#partial").html(result)
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+            });
+        });
+    </script>
 }
-
-

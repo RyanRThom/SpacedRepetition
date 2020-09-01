@@ -92,5 +92,11 @@ namespace SpacedRepetition.Repositories
             }
             return toReview;
         }
+
+        public List<Deck> GetDeckByName(ApplicationUser user, string deckName)
+        {
+            List<Deck> decks = _context.Users.Find(user.Id).Decks.Where(x => x.Name == deckName).ToList();
+            return decks;
+        }
     }
 }

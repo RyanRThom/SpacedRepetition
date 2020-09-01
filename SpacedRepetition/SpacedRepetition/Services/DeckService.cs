@@ -67,5 +67,10 @@ namespace SpacedRepetition.Services
         {
             return _repository.GetCardsToReview(user);
         }
+
+        public List<Deck> GetDeckByName(ApplicationUser user, string deckName)
+        {
+            return _repository.GetDeckByName(user, deckName);
+        }
     }
 }

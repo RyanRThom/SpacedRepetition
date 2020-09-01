@@ -1,14 +1,20 @@
-﻿@model SpacedRepetition.Models.Card
-
-<div class="row">
-    <div class="col-sm-6">
-        <div class="flashcard">
-            @Html.DisplayFor(m => m.CardFront)
+﻿@model IEnumerable<SpacedRepetition.Models.Deck>
+@foreach (SpacedRepetition.Models.Deck deck in Model)
+{
+    foreach (SpacedRepetition.Models.Card card in deck.Cards)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="flashcard">
+                    @card.CardFront
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="flashcard">
+                    @card.CardBack
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="flashcard">
-            @Html.DisplayFor(m => m.CardBack)
-        </div>
-    </div>
-</div>
+        <br />
+    }
+}
